@@ -16,11 +16,17 @@ def get_greeting(name):
     
     return f"Good {time_of_day}, {name}!"
 
-print(get_greeting("Daniel"))
-
 def get_datetime_string():
     now = datetime.now()
     return now.strftime("%d %B %I:%M %p")
 
-date_time = get_datetime_string()
-print(date_time)
+def main():
+    greeting = get_greeting("Daniel")
+    date_time = get_datetime_string()
+    message = f"{greeting} Today is {date_time}."
+    
+    # For now, just print it
+    print(message)
+
+if __name__ == "__main__":
+    main()
