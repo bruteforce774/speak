@@ -105,15 +105,30 @@ def main():
     
     message = f"{greeting} Today is {date_time}. {weather}"
     
-    response = input("Would you like to hear your weather briefing? (y/n): ").strip().lower()
-    if response == 'y':
+    # First ask if they want it spoken using zenity
+    result = subprocess.run(
+        ['zenity', '--question', '--title=Weather Briefing', 
+         '--text=Would you like to hear your weather briefing?',
+         '--width=300'],
+        capture_output=True
+    )
+    
+    if result.returncode == 0:  # User clicked Yes
         speak(message)
     
-    response = input("Would you like to see the text version? (y/n): ").strip().lower()
-    if response == 'y':
-        print(message)
-    else:
-        print("All done!")
+    # Then ask if they want to see the text
+    result = subprocess.run(
+        ['zenity', '--question', '--title=Weather Briefing',
+         '--text=Would you like to see the text version?',
+         '--width=300'],
+        capture_output=True
+    )
+    
+    if result.returncode == 0:  # User clicked Yes
+        subprocess.run(
+            ['zenity', '--info', '--title=Weather Briefing',
+             '--text=' + message, '--width=400']
+        )
 
 if __name__ == "__main__":
     main()
