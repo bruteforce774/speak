@@ -5,12 +5,10 @@ import json
 from datetime import datetime, timedelta
 import requests
 
-# Configuration
 CACHE_DIR = os.path.expanduser('~/.cache/weather')
 CACHE_FILE = os.path.join(CACHE_DIR, 'forecast.json')
 CACHE_HOURS = 6
 
-# Oslo coordinates
 LATITUDE = 59.91
 LONGITUDE = 10.76
 
@@ -32,12 +30,22 @@ def get_datetime_string():
     now = datetime.now()
     return now.strftime("%d %B %I:%M %p")
 
+def is_cache_fresh():
+    """Check if cache file exists and is less than CACHE_HOURS old"""
+    if not os.path.exists(CACHE_FILE):
+        return False
+    
+    # Get file modification time
+    file_time = datetime.fromtimestamp(os.path.getmtime(CACHE_FILE))
+    time_difference = datetime.now() - file_time
+    
+    return time_difference < timedelta(hours=CACHE_HOURS)
+
 def main():
     greeting = get_greeting("Daniel")
     date_time = get_datetime_string()
     message = f"{greeting} Today is {date_time}."
     
-    # For now, just print it
     print(message)
 
 if __name__ == "__main__":
