@@ -86,7 +86,7 @@ def get_today_weather_summary(weather_data):
     temp_max = round(today['temp']['max'])
     description = today['weather'][0]['description']
     
-    summary = f"Expect {description}, with a high of {temp_max}°C and a low of {temp_min}°C."
+    summary = f"Expect {description}, with a high of {temp_max} degrees and a low of {temp_min} degrees."
     
     return summary
 
