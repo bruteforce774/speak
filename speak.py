@@ -1,6 +1,18 @@
 #!/usr/bin/python3
 
-from datetime import datetime
+import os
+import json
+from datetime import datetime, timedelta
+import requests
+
+# Configuration
+CACHE_DIR = os.path.expanduser('~/.cache/weather')
+CACHE_FILE = os.path.join(CACHE_DIR, 'forecast.json')
+CACHE_HOURS = 6
+
+# Oslo coordinates
+LATITUDE = 59.91
+LONGITUDE = 10.76
 
 def get_greeting(name):
     current_hour = datetime.now().hour
