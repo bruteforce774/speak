@@ -106,7 +106,9 @@ def main():
     message = f"{greeting} Today is {date_time}. {weather}"
     
     print(message)
-    speak(message)
-
-if __name__ == "__main__":
-    main()
+    
+    response = input("Would you like me to read this aloud? (y/n): ").strip().lower()
+    if response == 'y':
+        speak(message)
+    else:
+        print("Okay, skipping speech output.")
