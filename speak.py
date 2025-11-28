@@ -35,11 +35,23 @@ def is_cache_fresh():
     if not os.path.exists(CACHE_FILE):
         return False
     
-    # Get file modification time
     file_time = datetime.fromtimestamp(os.path.getmtime(CACHE_FILE))
     time_difference = datetime.now() - file_time
     
     return time_difference < timedelta(hours=CACHE_HOURS)
+
+def save_cache(data):
+    """Save weather data to cache file"""
+    # Create directory if it doesn't exist
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    
+    with open(CACHE_FILE, 'w') as f:
+        json.dump(data, f)
+
+def load_cache():
+    """Load weather data from cache file"""
+    with open(CACHE_FILE, 'r') as f:
+        return json.load(f)
 
 def main():
     greeting = get_greeting("Daniel")
