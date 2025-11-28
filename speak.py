@@ -112,3 +112,6 @@ def main():
         speak(message)
     else:
         print("Okay, skipping speech output.")
+
+if __name__ == "__main__":
+    main()
