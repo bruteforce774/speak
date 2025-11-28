@@ -73,7 +73,9 @@ def get_today_weather_summary(weather_data):
 def main():
     greeting = get_greeting("Daniel")
     date_time = get_datetime_string()
-    message = f"{greeting} Today is {date_time}."
+    weather = get_today_weather_summary(get_weather_data())
+    
+    message = f"{greeting} Today is {date_time}. {weather}"
     
     print(message)
 
