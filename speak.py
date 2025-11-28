@@ -105,13 +105,12 @@ def main():
     
     message = f"{greeting} Today is {date_time}. {weather}"
     
-    print(message)
-    
-    response = input("Would you like me to read this aloud? (y/n): ").strip().lower()
+    response = input("Would you like to hear your weather briefing? (y/n): ").strip().lower()
     if response == 'y':
         speak(message)
+    
+    response = input("Would you like to see the text version? (y/n): ").strip().lower()
+    if response == 'y':
+        print(message)
     else:
-        print("Okay, skipping speech output.")
-
-if __name__ == "__main__":
-    main()
+        print("All done!")
