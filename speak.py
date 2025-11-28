@@ -39,6 +39,25 @@ def is_cache_fresh():
     
     return time_difference < timedelta(hours=CACHE_HOURS)
 
+def fetch_weather_from_api():
+    api_key = os.environ.get('OPENWEATHER_API_KEY')
+    
+    if not api_key:
+        raise ValueError("OPENWEATHER_API_KEY environment variable not set")
+    
+    url = "https://api.openweathermap.org/data/3.0/onecall"
+    params = {
+        'lat': LATITUDE,
+        'lon': LONGITUDE,
+        'units': 'metric',
+        'appid': api_key
+    }
+    
+    response = requests.get(url, params=params)
+    response.raise_for_status()  # Raises an error for bad status codes
+    
+    return response.json()
+
 def save_cache(data):
     os.makedirs(CACHE_DIR, exist_ok=True)
     
