@@ -106,6 +106,7 @@ def main():
     message = f"{greeting} Today is {date_time}. {weather}"
     
     print(message)
+    speak(message)
 
 if __name__ == "__main__":
     main()
