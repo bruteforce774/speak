@@ -50,7 +50,6 @@ def load_cache():
         return json.load(f)
     
 def get_weather_data():
-    """Get weather data, using cache if fresh, otherwise fetch from API"""
     if is_cache_fresh():
         print("Using cached weather data")
         return load_cache()
@@ -59,6 +58,17 @@ def get_weather_data():
         data = fetch_weather_from_api()
         save_cache(data)
         return data
+    
+def get_today_weather_summary(weather_data):
+    today = weather_data['daily'][0]
+    
+    temp_min = round(today['temp']['min'])
+    temp_max = round(today['temp']['max'])
+    description = today['weather'][0]['description']
+    
+    summary = f"Expect {description}, with a high of {temp_max}°C and a low of {temp_min}°C."
+    
+    return summary
 
 def main():
     greeting = get_greeting("Daniel")
