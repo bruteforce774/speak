@@ -31,7 +31,6 @@ def get_datetime_string():
     return now.strftime("%d %B %I:%M %p")
 
 def is_cache_fresh():
-    """Check if cache file exists and is less than CACHE_HOURS old"""
     if not os.path.exists(CACHE_FILE):
         return False
     
@@ -53,10 +52,10 @@ def load_cache():
 def get_weather_data():
     """Get weather data, using cache if fresh, otherwise fetch from API"""
     if is_cache_fresh():
-        print("Using cached weather data")  # Debug message
+        print("Using cached weather data")
         return load_cache()
     else:
-        print("Fetching fresh weather data from API")  # Debug message
+        print("Fetching fresh weather data from API")
         data = fetch_weather_from_api()
         save_cache(data)
         return data
