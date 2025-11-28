@@ -4,6 +4,7 @@ import os
 import json
 from datetime import datetime, timedelta
 import requests
+import subprocess
 
 CACHE_DIR = os.path.expanduser('~/.cache/weather')
 CACHE_FILE = os.path.join(CACHE_DIR, 'forecast.json')
@@ -88,6 +89,14 @@ def get_today_weather_summary(weather_data):
     summary = f"Expect {description}, with a high of {temp_max}°C and a low of {temp_min}°C."
     
     return summary
+
+def speak(message):
+    try:
+        subprocess.run(['spd-say', '-w', message], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error speaking: {e}")
+    except FileNotFoundError:
+        print("spd-say not found. Make sure speech-dispatcher is installed.")
 
 def main():
     greeting = get_greeting("Daniel")
