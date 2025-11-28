@@ -114,3 +114,6 @@ def main():
         print(message)
     else:
         print("All done!")
+
+if __name__ == "__main__":
+    main()
