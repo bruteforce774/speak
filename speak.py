@@ -41,17 +41,25 @@ def is_cache_fresh():
     return time_difference < timedelta(hours=CACHE_HOURS)
 
 def save_cache(data):
-    """Save weather data to cache file"""
-    # Create directory if it doesn't exist
     os.makedirs(CACHE_DIR, exist_ok=True)
     
     with open(CACHE_FILE, 'w') as f:
         json.dump(data, f)
 
 def load_cache():
-    """Load weather data from cache file"""
     with open(CACHE_FILE, 'r') as f:
         return json.load(f)
+    
+def get_weather_data():
+    """Get weather data, using cache if fresh, otherwise fetch from API"""
+    if is_cache_fresh():
+        print("Using cached weather data")  # Debug message
+        return load_cache()
+    else:
+        print("Fetching fresh weather data from API")  # Debug message
+        data = fetch_weather_from_api()
+        save_cache(data)
+        return data
 
 def main():
     greeting = get_greeting("Daniel")
