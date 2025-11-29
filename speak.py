@@ -55,7 +55,7 @@ def fetch_weather_from_api():
     }
     
     response = requests.get(url, params=params)
-    response.raise_for_status()  # Raises an error for bad status codes
+    response.raise_for_status() 
     
     return response.json()
 
